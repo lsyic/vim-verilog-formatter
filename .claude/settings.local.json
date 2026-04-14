@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(vim -u NONE -c \"set runtimepath+=/home/lsy/work/vim-verilog-formatter\" -c \"source /home/lsy/work/vim-verilog-formatter/plugin/verilog_format.vim\" -c \"edit /home/lsy/work/vim-verilog-formatter/test/test.v\" -c \"VerilogFormat\" -c \"write\" -c \"quit\")",
+      "Bash(vim:*)"
+    ]
+  }
+}

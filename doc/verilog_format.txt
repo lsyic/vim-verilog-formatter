@@ -1,0 +1,176 @@
+*verilog_format.txt*  Verilog 格式化插件
+
+作者：Verilog Format Team
+版本：1.0.0
+
+================================================================================
+目录
+
+1. 简介.................................|verilog_format_intro|
+2. 安装.................................|verilog_format_install|
+3. 使用方法.............................|verilog_format_usage|
+4. 配置选项.............................|verilog_format_config|
+5. 功能说明.............................|verilog_format_features|
+6. 示例.................................|verilog_format_example|
+
+================================================================================
+1. 简介                                            *verilog_format_intro*
+
+Verilog Format 是一个用于格式化 Verilog/SystemVerilog 代码的 Vim 插件。
+它可以帮助您快速整理代码格式，使代码更加规范和易读。
+
+主要功能：
+- 自动缩进（可配置空格数）
+- 信号名对齐
+- 注释对齐
+- 端口声明对齐
+- case 语句对齐
+- 操作符对齐
+
+================================================================================
+2. 安装                                            *verilog_format_install*
+
+使用 Vim 包管理器：
+>
+    " 将插件复制到 ~/.vim/pack/plugins/start/
+    mkdir -p ~/.vim/pack/plugins/start
+    cd ~/.vim/pack/plugins/start
+    git clone <repository-url> vim-verilog-formatter
+<
+
+或者使用 vim-plug：
+>
+    Plug '<repository-url>'
+<
+
+================================================================================
+3. 使用方法                                          *verilog_format_usage*
+
+快捷键：
+    \vf           格式化整个缓冲区
+    \vs           格式化可视模式选中的区域
+
+命令：
+    :VerilogFormat        格式化整个文件
+    :VerilogFormatRange   格式化指定范围
+    :VerilogFormatHelp    显示帮助信息
+
+示例：
+>
+    " 格式化整个文件
+    :VerilogFormat
+
+    " 格式化第 10 到 50 行
+    :10,50VerilogFormatRange
+
+    " 在可视模式下选择区域后按 \vs
+<
+
+================================================================================
+4. 配置选项                                          *verilog_format_config*
+
+在 .vimrc 中添加以下配置来自定义插件行为：
+
+*g:verilog_format_indent*
+    缩进空格数（默认：4）
+>
+        let g:verilog_format_indent = 4
+<
+
+*g:verilog_format_comment_col*
+    行尾注释对齐的列位置（默认：40）
+>
+        let g:verilog_format_comment_col = 40
+<
+
+*g:verilog_format_align_ops*
+    是否对齐操作符（默认：1）
+>
+        let g:verilog_format_align_ops = 1
+<
+
+*g:verilog_format_align_ports*
+    是否对齐端口声明（默认：1）
+>
+        let g:verilog_format_align_ports = 1
+<
+
+*g:verilog_format_tab_spaces*
+    是否将 Tab 转换为空格（默认：1）
+>
+        let g:verilog_format_tab_spaces = 1
+<
+
+================================================================================
+5. 功能说明                                        *verilog_format_features*
+
+5.1 缩进处理
+    插件会自动检测代码块的层级结构，包括：
+    - module/interface/package
+    - begin/end
+    - case/endcase
+    - generate/endgenerate
+    - fork/join
+
+5.2 信号对齐
+    自动对齐连续的信号声明：
+    - wire, reg, logic
+    - input, output, inout
+    - parameter, localparam
+
+5.3 注释对齐
+    - 行尾注释 "//" 对齐到指定列
+    - 块注释 "/* */" 格式化
+
+5.4 case 语句对齐
+    - case item 标签对齐
+    - case 块内缩进
+
+5.5 操作符对齐
+    - 连续赋值语句的 "= "或"<="对齐
+
+================================================================================
+6. 示例                                            *verilog_format_example*
+
+格式化前：
+>verilog
+module test(
+input clk,
+input rst_n,
+output wire [7:0] data_out,
+input wire [7:0] data_in
+);
+reg [3:0] counter;
+wire enable;
+assign out = (en) ? data : 4'b0; // 默认值
+always @(posedge clk) begin
+if (rst_n) begin
+counter <= 0;
+end
+end
+endmodule
+<
+
+格式化后：
+>verilog
+module test(
+    input      clk,
+    input      rst_n,
+    output wire [7:0] data_out,
+    input wire [7:0] data_in
+);
+    reg  [3:0] counter;
+    wire       enable;
+
+    assign out = (en) ? data : 4'b0;    // 默认值
+
+    always @(posedge clk) begin
+        if (rst_n) begin
+            counter <= 0;
+        end
+    end
+endmodule
+<
+
+================================================================================
+vim:tw=78:ts=8:ft=help:norl:
